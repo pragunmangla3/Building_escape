@@ -1,0 +1,78 @@
+1. First I created a new component. 
+
+Learning - 
+
+That component (Actor) can be easily added to the objects like cubes, circle etc 
+
+To delete a component, you need to first see, no object should be using it. 
+Now, go to the project file, and delete .h and .cpp of the component. come outside a bit, and delete all the binaries of the file.
+
+
+
+2. I trued logging in debugging window -
+
+Learning -
+
+Window -> Developer Tools -> output log 
+
+UE_LOG(Category, Verbosity, TEXT("Message"));
+ex - 
+1) UE_LOG(LogTemp, Warning, TEXT("Hello!"));
+
+2) 	FString Log = TEXT("Hello!");
+
+	UE_LOG(LogTemp, Warning, TEXT("%s"), *Log); // here * is used for overloading not dereferencing.
+
+
+error -> red
+Warning -> yellow
+display -> grey
+
+3. Set a level as default one.
+
+Learning - 
+
+First save the level.
+
+Go to edit -> project settings -> maps and modes -> Editor startup map
+
+
+
+
+4. Use GetOwner() -> to find the components owner, Use GetName() to get the name
+
+
+Learning -
+
+use -> to access members of a pointer. . operator is used when you dereference it.
+A pointer always has memory address as value.
+
+#include "GameFramework/Actor.h" -> we need to include what we use, ie to use GetName() , GetOwner(), you need to include this.
+
+
+
+5) Get the Location of a component. and Use FVector
+
+example - 
+FString ObjectPosition = GetOwner()->GetActorLocation().ToString();
+
+
+
+6) Mesh, Material and Texture
+
+
+Learnings - 
+
+-> if 2 mesh objects (like door and door frame) are compatible, then select both and then drag them to add into the game.
+
+You can create a node -> texture sample for a material, that will take a texture and make it as base color for that material.
+
+If we directly apply a texture on our mesh object, texture will get applied, and a separate material with that texture will also get born. that we can see beside the other materials already present.
+This is exactly what we did manually earlier.
+
+-> Always make an instance of a material and then apply on an object (mesh), rather than directly applying on it. (material is also a shader)
+Because, changing the base material will lead to changes in all the objects using that material, hence always use instance.
+
+
+
+

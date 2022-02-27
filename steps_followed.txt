@@ -76,3 +76,32 @@ Because, changing the base material will lead to changes in all the objects usin
 
 
 
+7) Using BSPs to create objects (static mesh)
+
+First add the BSP Geometry -> go to brush settings -> create static mesh. 
+(But keep in mind that these are not performance efficient, So dont use it).
+
+Selecting material first, and then adding a BSP, directly applies the material all over the BSP While we add them into our game.
+If you choose subract (subtractive brush), You make a room out of the object you place that subtractive object.
+
+Subtracting do not work on static mesh. It only works BSP (Brush)
+
+-> Z fighting -> it happens when 2 objects are in same place and overlapping.
+
+-> order should follow like this -> first additive, and then subtractive, otherwise it wont work. You can change the order manually through options also.
+
+-> Alt + Drag to make a copy.
+
+
+8) Chaning the UVs.
+
+UVs -> make a node connected to UVs "TextCoordinates" -> change Utiling and Vtiling options.
+
+
+
+Quad view-> best for almost everything.
+
+
+
+
+

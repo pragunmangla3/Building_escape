@@ -92,16 +92,38 @@ Subtracting do not work on static mesh. It only works BSP (Brush)
 
 -> Alt + Drag to make a copy.
 
+Quad view-> best for almost everything.
+
 
 8) Chaning the UVs.
 
 UVs -> make a node connected to UVs "TextCoordinates" -> change Utiling and Vtiling options.
 
+Now, that will make changes wherever that material was used. Now, We use ScalarParameter to make changes and use multiply node to connect everything.
+
+In Short -> Adding nodes in material will give you options in their material instances.
 
 
-Quad view-> best for almost everything.
+
+9) Now, We created and added an new component to the door for opening functionality.
+
+But, We need to make the static mesh movable, which is statc by default. (by clicking on that option)
+
+Learning -> x: Roll, y:pitch, z:yaw
 
 
+10) Collision. -> we wanted to go out of the door. How to get rid of collision ?
+
+Never use complex colision -> too expensive, Also Doesnt have proper collision setup. 
+
+Low Polygon collision can be created the model in the first place. 
+But you can use BSPs also. -> first cover up the model with it. -> create a static mesh out of it. -> change its collision to -> "Use Complex collision as simple". (Not ideal but still)
 
 
+11) You can replace meshes -> by selecting the thing that needs to be replaced, and select the mesh you want to insert in the "static mesh" option.
+
+To Delete the old object/mesh, just delete and replace the one currently using via options while deleting. never use force delete.
+
+
+-> Always fix redirector after deleting something. (content-> right click on desired folder, ex - models-> fix redirectors)
 

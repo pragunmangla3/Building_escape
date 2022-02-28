@@ -127,3 +127,13 @@ To Delete the old object/mesh, just delete and replace the one currently using v
 
 -> Always fix redirector after deleting something. (content-> right click on desired folder, ex - models-> fix redirectors)
 
+.
+
+
+12) UPROPERTY(EditAnywhere) -> makes that property available to be edit in the engine itself.
+PressurePlate is to be set in the engine after compile for our door.
+Also, the actorThatOpens is also set in Engine, You can do that by ejecting yourself. -> to defaultPawn.
+
+13) You can use GetWorld() to obtain everything (Actors, objects) present in the game.
+The Default Pawn is your "Body", in transient.
+The Player Controller is your "mind" that persists.

@@ -1,8 +1,10 @@
 // Copyright Pragun Mangla 2022
 
-
+#include "Engine/World.h"
+#include "GameFramework/PlayerController.h"
 #include "OpenDoor.h"
 #include "GameFramework/Actor.h"
+
 
 // Sets default values for this component's properties
 UOpenDoor::UOpenDoor()
@@ -15,32 +17,63 @@ UOpenDoor::UOpenDoor()
 }
 
 
+
 // Called when the game starts
 void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
 	
 	// FRotator CurrentRotation = GetOwner()->GetActorRotation();
 	// CurrentRotation.Yaw += 90;
 	// GetOwner()->SetActorRotation(CurrentRotation);
+	if(!PressurePlate){
+		UE_LOG(LogTemp, Warning, TEXT("%s has OpenDoor component on it, but no pressurePlate set"), *GetOwner()->GetName())
+	}
 
+	InitialYaw = GetOwner()->GetActorRotation().Yaw;
+	ActorThatOpen = GetWorld()->GetFirstPlayerController()->GetPawn();
 	
+
 }
+
+
 
 
 // Called every frame
 void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	UE_LOG(LogTemp, Warning, TEXT("%s"), *GetOwner()->GetActorRotation().ToString());
-	UE_LOG(LogTemp, Warning, TEXT("Yaw is : %f"), GetOwner()->GetActorRotation().Yaw);
 
-	float CurrentYaw = GetOwner()->GetActorRotation().Yaw;
-	FRotator OpenDoor(0.f,CurrentYaw,0.f);
-	// CurrentYaw yaw, target yaw, 0-1 (for % increase open);
-	OpenDoor.Yaw = FMath:: FInterpTo(CurrentYaw, TargetYaw, DeltaTime, 2);
-	GetOwner()->SetActorRotation(OpenDoor);
+	if(PressurePlate && PressurePlate->IsOverlappingActor(ActorThatOpen )){
+		OpenDoor(DeltaTime);
+	}
+	else{
+		CloseDoor(DeltaTime);
+	}
+
+	
+
+
 	// ...
 }
 
+void UOpenDoor::OpenDoor(float DeltaTime){
+
+	float CurrentYaw = GetOwner()->GetActorRotation().Yaw;
+	FRotator DoorRotation(0.f,CurrentYaw,0.f);
+	// CurrentYaw yaw, target yaw, 0-1 (for % increase open);
+	DoorRotation.Yaw = FMath:: FInterpTo(CurrentYaw, InitialYaw + TargetYaw, DeltaTime, 2);
+	GetOwner()->SetActorRotation(DoorRotation);
+
+}
+
+void UOpenDoor::CloseDoor(float DeltaTime){
+
+	float CurrentYaw = GetOwner()->GetActorRotation().Yaw;
+	FRotator DoorRotation(0.f,CurrentYaw,0.f);
+	// CurrentYaw yaw, target yaw, 0-1 (for % increase open);
+	DoorRotation.Yaw = FMath:: FInterpTo(CurrentYaw, InitialYaw, DeltaTime, 4);
+	GetOwner()->SetActorRotation(DoorRotation);
+
+}
